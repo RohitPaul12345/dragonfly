@@ -39,10 +39,10 @@ locked_borders = [],
 /* create the DOM view */
 getDOM = function() 
 {
-  var 
+  let 
   traverseElementNodeHead = function(node, padding, close) 
   {
-    var
+    let
     attrs = node.attributes,
     attr = null,
     i = 0,
@@ -62,7 +62,7 @@ getDOM = function()
   
   traverseElementNodeFoot = function(node, padding, close) 
   {
-    var
+    let
     ret =
     ( close ? ( "<node-container style='padding-left:" + padding * PADDING +"px;'>" ) : "" ) +
     "<node>&lt;/" + node.nodeName + "&gt;</node>" +
@@ -73,7 +73,7 @@ getDOM = function()
   
   traverseNode = function(node, padding) 
   {
-    var
+    let
     children = node.childNodes,
     child = null,
     i = 0,
@@ -136,7 +136,7 @@ Highlighter = function(doc)
   BORDER = 2, 
   MARGIN = 3;
 
-  var
+  let
   canvas = null,
   ctx = null,
   doc_width = 0,
@@ -203,7 +203,7 @@ Highlighter = function(doc)
 
   draw_highlight = function(outer_box, inner_box)
   {
-    var 
+    let 
     and_box = null,
     or_box = null,
     max = Math.max,
@@ -289,7 +289,7 @@ Highlighter = function(doc)
   */
   getBoxes = function(node) 
   {
-    var 
+    let 
     container = test_doc.documentElement,
     scrollLeft = container.scrollLeft,
     scrollRight = scrollLeft + doc_view_width,
@@ -323,7 +323,7 @@ Highlighter = function(doc)
   
   scrollIntoView = function(box) 
   {
-    var container = test_doc.documentElement,
+    let container = test_doc.documentElement,
     scrollLeft = container.scrollLeft,
     scrollRight = scrollLeft + doc_view_width,
     scrollTop = container.scrollTop,
@@ -367,7 +367,7 @@ Highlighter = function(doc)
 
   this.get_color = function(id)
   {
-    var color = window['cst-selects'][id].getSelectedValue();    
+    let color = window['cst-selects'][id].getSelectedValue();    
     return "rgba(" + 
       color[0] + ', ' + 
       color[1] + ', ' + 
@@ -377,7 +377,7 @@ Highlighter = function(doc)
 
   this.highlightNode = function(node, mode, check_lock) 
   {
-    var 
+    let 
     inner_box = null, 
     outer_box = null,
     grid_box = null,
@@ -437,7 +437,7 @@ Highlighter = function(doc)
     last_selected = [node, boxes];
     if(check_lock && is_lock && ( grid_box || frame_box ) )
     {
-      var index = 0;
+      let index = 0;
       for( ; lock_eles[index] && lock_eles[index] != node; index++ );
       lock_eles[index] = node;
       lock_boxes[index] = grid_box || frame_box;
@@ -453,7 +453,7 @@ click_handler_dom = function(event)
   {
     return;
   }
-  var 
+  let 
   target = event.target,
   ref_index = "",
   metrics = null;
@@ -474,7 +474,7 @@ click_handler_dom = function(event)
     test_doc_target = dom_nodes[ref_index];
     metrics = document.getElementById("metrics");
     metrics.innerHTML = "";
-    var style_dec = frames[0].getComputedStyle(test_doc_target, null);
+    let style_dec = frames[0].getComputedStyle(test_doc_target, null);
     cls_not_null =
     [
       style_dec.getPropertyValue(MARGIN_TOP) != "0px"
@@ -508,7 +508,7 @@ mouseover_dom = function(event)
   {
     return;
   }
-  var t = 0;
+  let t = 0;
   while( t = mouseout_dom.timeouts.shift() )
   {
     clearTimeout(t);
@@ -532,7 +532,7 @@ mouseout_dom.handler = function(event)
   highlighter.highlightNode(test_doc_target, ACTION_CLEAR );
 };
 
-var cls = ['margin', 'border', 'padding', 'dimension'],
+let cls = ['margin', 'border', 'padding', 'dimension'],
 cls_not_null = [],
 cls_map = 
 {
@@ -563,13 +563,13 @@ showHighlightControlMetrics = function()
 {
   if (current_target_metrics) 
   {
-    var not_null = cls_not_null[cls.indexOf(current_target_metrics.className)];
+    let not_null = cls_not_null[cls.indexOf(current_target_metrics.className)];
     current_target_metrics.style.backgroundColor = 
       not_null 
       && ("rgb(" + window['cst-selects'].HIGHLIGHT_COLOR.getSelectedValue().slice(0,3).join(',') + ")") 
       || "hsl(0, 0%, 90%)";
     current_target_metrics.style.color = not_null && "#fff" || "#333";
-    var inner_index = cls.indexOf(current_target_metrics.className) + 1;
+    let inner_index = cls.indexOf(current_target_metrics.className) + 1;
     if (inner_index > 0 && inner_index < 4) 
     {
       current_target_metrics_inner = 
@@ -587,7 +587,7 @@ mouseover_controls = function(event, check_lock)
   {
     return;
   }
-  var 
+  let 
   target = event.target,
   cls_index = 0;
 
@@ -623,10 +623,10 @@ click_handler_controls = function(event)
 
 getTestUrls = function()
 {
-  var xhr = new XMLHttpRequest();
+  let xhr = new XMLHttpRequest();
   xhr.onload = function()
   {
-    var 
+    let 
     h2 = document.getElementsByTagName('h2')[0],
     markup = " <select onchange='loadurl(this.value)'>";
     urls = this.responseXML.getElementsByTagName('url'),
@@ -653,16 +653,16 @@ getRealTarget = function(event)
     document.documentElement.releaseEvent('click');
     return;
   }
-  var x = event.pageX, y = event.pageY;
+  let x = event.pageX, y = event.pageY;
 
   event.target.style.display= 'none';
 
-  var target = this.elementFromPoint(x,y);
+  let target = this.elementFromPoint(x,y);
 
   while(target && target.nodeType != 1 && ( target = target.parentNode ) );
   event.target.style.removeProperty('display');
 
-  var 
+  let 
   index = dom_nodes.indexOf(target),
   s_index = index.toString(),
   nodes = document.getElementById('dom').getElementsByTagName('node-container'),
