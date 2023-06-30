@@ -19,7 +19,7 @@
   EOL_DATA              = cls.MarkupTokenizer.types.EOL_DATA,
   EOF                   = cls.MarkupTokenizer.types.EOF;
   
-  var classes = {}
+  let classes = {}
   
 //  classes[UNKNOWN]= "";
   classes[TAG_OPEN] = "dom-element tag-delimeter";
@@ -39,11 +39,11 @@
 //  classes[EOL_DATA] = "";
 //  classes[EOF] = ""
 
-  var tokenizer = new cls.MarkupTokenizer();
+  let tokenizer = new cls.MarkupTokenizer();
   
   onmarkuptoken = function(context, token_type, token)
   {
-    var spacer = " "
+    let spacer = " "
     if (token)
     {
       if (token_type == EOL_DATA)
@@ -62,7 +62,7 @@
   
   this.highlight_markup = function(script, onnewline, c)
   {
-    var context =
+    let context =
     {
       template: ["pre"],
       text: "",
